@@ -8,28 +8,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include "node.h"
 #include "rdp.h"
-
-void RDP_execute() {
-    RDP rdp = RDP_new();
-    RDP_free(rdp);
-}
-
-void TDP_execute() {
-    //TDP tdp = TDP_new();
-}
-
-void PT_evaluate() {
-    //choose rdp or tdp to generate parse tree
-    //evaluate for result of parse tree
-}
 
 /**
  * Get string input from user followed by RETURN/ENTER.
  */
-char* getInput() {
+char* get_input() {
     static char input[64];
-    printf("\nPlease enter an input string: ");
+    printf("\n Please enter an input expression");
+    printf("\n (64 characters max): ");
     fgets(input, 64, stdin);
     char *c = strstr(input, "\n");
     *c = '\0';
@@ -41,6 +29,22 @@ char* getInput() {
  */
 void printline() {
     printf("\n----------------------------------------\n");
+}
+
+void RDP_execute() {
+    char* input = get_input();
+    RDP rdp = RDP_new(input);
+    RDP_process(rdp);
+    RDP_free(rdp);
+}
+
+void TDP_execute() {
+    //TDP tdp = TDP_new();
+}
+
+void PT_evaluate() {
+    //choose rdp or tdp to generate parse tree
+    //evaluate for result of parse tree
 }
 
 /**

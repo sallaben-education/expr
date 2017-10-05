@@ -18,7 +18,9 @@ Node Node_new(Node parent) {
 }
 
 void Node_free(Node node) {
-    free(node->parent);
+    if(node->parent != NULL) {
+        Node_free(node->parent);
+    }
     free(node);
 }
 
