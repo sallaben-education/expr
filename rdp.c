@@ -7,7 +7,7 @@
 
 #include "rdp.h"
 
-/**
+/*
  * RDP struct definition
  */
 struct RDP {
@@ -15,17 +15,17 @@ struct RDP {
     const char* input;                              //stores the full input given to the RDP as a constant
 };
 
-/**
+/*
  * Allocate and initialize a new RDP instance
  */
 RDP RDP_new(char* input) {
     RDP rdp = malloc(sizeof(RDP));                  //allocate memory for new RDP
-    rdp->input = input;                             //stores the full input expression
     rdp->index = -1;                                //set its initial index to -1, signifying that the RDP has not yet processed any input
+    rdp->input = input;                             //stores the full input expression
     return rdp;
 }
 
-/**
+/*
  * Processes an input using the given RDP and recursive-descent parsing,
  * starting by checking whether or not the input matches G_expression()
  */
@@ -42,21 +42,21 @@ void RDP_process(RDP rdp) {
     
 }
 
-/**
+/*
  * "Consumes" character (increments the character index of the RDP by 1)
  */
 void RDP_consume(RDP rdp) {
     rdp->index++;
 }
 
-/**
+/*
  * Returns the lookahead char (next character in the input string) without consuming anything
  */
 char G_next(RDP rdp) {
     return rdp->input[rdp->index + 1];
 }
 
-/**
+/*
  * Matches an input character in the given RDP to a Digit
  */
 bool G_digit(RDP rdp) {
@@ -72,7 +72,7 @@ bool G_digit(RDP rdp) {
     return false;
 }
 
-/**
+/*
  * Matches an input character in the given RDP to a Number
  */
 bool G_number(RDP rdp) {
@@ -84,7 +84,7 @@ bool G_number(RDP rdp) {
     return false;
 }
 
-/**
+/*
  * Matches an input character in the given RDP to a Number' (a product of eliminating left-recursion)
  */
 bool G_number_prime(RDP rdp) {
@@ -94,7 +94,7 @@ bool G_number_prime(RDP rdp) {
     return true;
 }
 
-/**
+/*
  * Matches an input character in the given RDP to a Factor
  */
 bool G_factor(RDP rdp) {
@@ -112,7 +112,7 @@ bool G_factor(RDP rdp) {
     return false;
 }
 
-/**
+/*
  * Matches an input character in the given RDP to a Factor' (a product of eliminating left-recursion)
  */
 bool G_factor_prime(RDP rdp) {
@@ -136,7 +136,7 @@ bool G_factor_prime(RDP rdp) {
     return false;
 }
 
-/**
+/*
  * Matches an input character in the given RDP to a Term
  */
 bool G_term(RDP rdp) {
@@ -148,7 +148,7 @@ bool G_term(RDP rdp) {
     return false;
 }
 
-/**
+/*
  * Matches an input character in the given RDP to a Term' (a product of eliminating left-recursion)
  */
 bool G_term_prime(RDP rdp) {
@@ -172,7 +172,7 @@ bool G_term_prime(RDP rdp) {
     return false;
 }
 
-/**
+/*
  * Matches an input character in the given RDP to an Expression
  */
 bool G_expression(RDP rdp) {
@@ -184,7 +184,7 @@ bool G_expression(RDP rdp) {
     return false;
 }
 
-/**
+/*
  * Frees the RDP from memory
  */
 void RDP_free(RDP rdp) {

@@ -5,13 +5,13 @@
 //  Created by sallaben on 10/1/17.
 //
 
-#include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
 #include "node.h"
+#include "stack.h"
 #include "rdp.h"
+#include "tdp.h"
 
-/**
+/*
  * Get string input from user followed by RETURN/ENTER.
  */
 char* get_input() {
@@ -24,7 +24,7 @@ char* get_input() {
     return input;
 }
 
-/**
+/*
  * Prints a line of hyphens (useful for formatting).
  */
 void printline() {
@@ -39,7 +39,9 @@ void RDP_execute() {
 }
 
 void TDP_execute() {
-    //TDP tdp = TDP_new();
+    char* input = get_input();
+    TDP tdp = TDP_new(input);
+    TDP_free(tdp);
 }
 
 void PT_evaluate() {
@@ -47,14 +49,14 @@ void PT_evaluate() {
     //evaluate for result of parse tree
 }
 
-/**
+/*
  * Main method of expr
  */
 int main(int argc, const char * argv[]) {
     bool escape = false;
-    while(!escape) {                                                        //loop until escape is true
+    while(!escape) {                                                    //loop until escape is true
         printline();
-        printf("           Parser & Evaluator");                                //menu formatting
+        printf("           Parser & Evaluator");                            //menu formatting
         printline();
         printf("\n");
         printf("[Main Menu]\n");
@@ -63,17 +65,17 @@ int main(int argc, const char * argv[]) {
         printf("  3. Evaluate parse trees\n");
         printf("  4. Quit\n");
         int choice = -1;
-        while(choice == -1) {                                                   //until there is a valid integer chosen
+        while(choice == -1) {                                               //until there is a valid integer chosen
             printf("\n Select an option > ");
-            scanf("%i", &choice);                                                   //extract integer from s tdin
-            char c; while((c = getchar()) != '\n');                                 //clears remaining chars in stdin
+            scanf("%i", &choice);                                               //extract integer from stdin
+            char c; while((c = getchar()) != '\n');                             //clear remaining chars in stdin
         }
-        if((choice >= 1) && (choice <= 4)) {                                    //checks whether or not the choice is a valid one
+        if((choice >= 1) && (choice <= 4)) {                                //checks whether or not the choice is a valid one
             switch(choice) {
-                case 1: RDP_execute(); break;                                       //run the recursive-descent parser
-                case 2: TDP_execute(); break;                                       //run the table driven parser
-                case 3: PT_evaluate(); break;                                       //create and evaluate a parse tree
-                case 4: escape = true; break;                                       //exit the menu loop
+                case 1: RDP_execute(); break;                                   //run the recursive-descent parser
+                case 2: TDP_execute(); break;                                   //run the table driven parser
+                case 3: PT_evaluate(); break;                                   //create and evaluate a parse tree
+                case 4: escape = true; break;                                   //exit the menu loop
             }
         } else {
             printf("\nI didn't understand your input. Please try again!\n");
