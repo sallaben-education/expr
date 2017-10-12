@@ -29,15 +29,18 @@ RDP RDP_new(char* input) {
  * Processes an input using the given RDP and recursive-descent parsing,
  * starting by checking whether or not the input matches G_expression()
  */
-void RDP_process(RDP rdp) {
+bool RDP_process(RDP rdp) {
     if(G_expression(rdp)) {
-        if(G_next(rdp) == '\0') {
+        if(RDP_next(rdp) == '\0') {
             printf("\n * Successfully parsed! *\n");
+            return true;
         } else {
             printf("\n * Error while reading end of expression! *\n");
+            return false;
         }
     } else {
         printf("\n * Error(s) while parsing expression! *\n");
+        return false;
     }
     
 }
@@ -52,7 +55,7 @@ void RDP_consume(RDP rdp) {
 /*
  * Returns the lookahead char (next character in the input string) without consuming anything
  */
-char G_next(RDP rdp) {
+char RDP_next(RDP rdp) {
     return rdp->input[rdp->index + 1];
 }
 
@@ -60,7 +63,7 @@ char G_next(RDP rdp) {
  * Matches an input character in the given RDP to a Digit
  */
 bool G_digit(RDP rdp) {
-    char c = G_next(rdp);
+    char c = RDP_next(rdp);
     if(c == '0' || c == '1' ||
        c == '2' || c == '3' ||
        c == '4' || c == '5' ||
@@ -100,10 +103,10 @@ bool G_number_prime(RDP rdp) {
 bool G_factor(RDP rdp) {
     if(G_number(rdp)) {
         return true;
-    } else if(G_next(rdp) == '(') {
+    } else if(RDP_next(rdp) == '(') {
         RDP_consume(rdp);
         if(G_expression(rdp)) {
-            if(G_next(rdp) == ')') {
+            if(RDP_next(rdp) == ')') {
                 RDP_consume(rdp);
                 return true;
             }
@@ -116,7 +119,7 @@ bool G_factor(RDP rdp) {
  * Matches an input character in the given RDP to a Factor' (a product of eliminating left-recursion)
  */
 bool G_factor_prime(RDP rdp) {
-    switch(G_next(rdp)) {
+    switch(RDP_next(rdp)) {
         case '*':
             RDP_consume(rdp);
             if(G_factor(rdp)) {
@@ -152,7 +155,7 @@ bool G_term(RDP rdp) {
  * Matches an input character in the given RDP to a Term' (a product of eliminating left-recursion)
  */
 bool G_term_prime(RDP rdp) {
-    switch(G_next(rdp)) {
+    switch(RDP_next(rdp)) {
         case '+':
             RDP_consume(rdp);
             if(G_term(rdp)) {

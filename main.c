@@ -41,6 +41,7 @@ void RDP_execute() {
 void TDP_execute() {
     char* input = get_input();
     TDP tdp = TDP_new(input);
+    TDP_process(tdp);
     TDP_free(tdp);
 }
 

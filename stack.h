@@ -8,6 +8,7 @@
 #ifndef stack_h
 #define stack_h
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -22,6 +23,8 @@ extern int Stack_pop(Stack stack);
 extern int Stack_peek(Stack stack);
 
 extern int Stack_size(Stack stack);
+
+extern void Stack_print(Stack stack);
 
 extern bool Stack_shift_left(Stack stack);
 

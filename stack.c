@@ -57,6 +57,22 @@ int Stack_size(Stack stack) {
     return stack->size;
 }
 
+void Stack_print(Stack stack) {
+    int size = Stack_size(stack);
+    printf("\n\nStack of size %d", size);
+    if(size > 0) {
+        for(int i = 0; i < size; i++) {
+            if(i == 0) {
+                printf("\n[%d]", stack->list[0]);
+            } else {
+                printf("\n%d", stack->list[i]);
+            }
+        }
+    } else {
+        printf("\nNothing to print!");
+    }
+}
+
 /*
  * "Shifts" the given stack 1 space to the left, removing space left behind from Stack_pop()
  */
@@ -77,8 +93,8 @@ bool Stack_shift_right(Stack stack) {
     if(stack->size >= 64) {
         return false;
     }
-    for(int i = 0; i < stack->size; i++) {
-        stack->list[i + 1] = stack->list[i];
+    for(int i = stack->size; i > 0; i--) {
+        stack->list[i] = stack->list[i - 1];
     }
     return true;
 }

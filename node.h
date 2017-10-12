@@ -14,8 +14,8 @@ typedef struct Node *Node;
 
 extern Node Node_new(Node parent);
 
-extern void Node_free(Node node);
+extern void Node_set_parent(Node node, Node parent);
 
-extern void set_parent(Node node, Node parent);
+extern void Node_free(Node node);
 
 #endif /* node_h */

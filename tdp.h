@@ -16,6 +16,18 @@ typedef struct TDP *TDP;
 
 extern TDP TDP_new(char* input);
 
+extern bool TDP_process(TDP tdp);
+
+extern void TDP_consume(TDP tdp);
+
+extern char TDP_next(TDP tdp);
+
+extern int G_translate_next(TDP tdp, bool raw);
+
+extern bool G_push_to_stack(TDP tdp, int action);
+
+extern bool G_is_nonterminal(int i);
+
 extern bool G_is_digit(char c);
 
 extern int** G_table(void);

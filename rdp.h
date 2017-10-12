@@ -16,11 +16,11 @@ typedef struct RDP *RDP;
 
 extern RDP RDP_new(char* input);
 
-extern void RDP_process(RDP rdp);
+extern bool RDP_process(RDP rdp);
 
 extern void RDP_consume(RDP rdp);
 
-extern char G_next(RDP rdp);
+extern char RDP_next(RDP rdp);
 
 extern bool G_digit(RDP rdp);
 
