@@ -19,7 +19,7 @@ struct Stack {
  * Allocate and initialize a new instance of a stack (with a limit of 64 integers)
  */
 Stack Stack_new() {
-    Stack stack = malloc(sizeof(Stack));
+    Stack stack = malloc(sizeof(struct Stack));
     stack->size = 0;
     return stack;
 }

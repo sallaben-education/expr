@@ -27,7 +27,7 @@ struct TDP {
  * Allocate and initialize a new TDP instance
  */
 TDP TDP_new(char* input) {
-    TDP tdp = malloc(sizeof(TDP));                          //allocate memory for new TDP
+    TDP tdp = malloc(sizeof(struct TDP));                   //allocate memory for new TDP
     tdp->index = -1;                                        //set its initial index to -1, signifying that the TDP has not yet processed any input
     tdp->input = input;                                     //stores the full input expression
     tdp->stack = Stack_new();                               //initialize a new, empty Stack
@@ -48,18 +48,18 @@ bool TDP_process(TDP tdp) {
                 Stack_pop(tdp->stack);
                 G_push_to_stack(tdp, next);
             } else {
-                printf("\n * Error (no production defined for this combination, or missing end of input symbol '$')! *\n");
+                printf("\n ** Error (no production defined for this combination, or missing end of input symbol '$')! **\n");
                 return false;
             }
         } else if(peek == G_translate_next(tdp, true)) {
             Stack_pop(tdp->stack);
             TDP_consume(tdp);
         } else {
-            printf("\n * Error (unexpected character in input)! *\n");
+            printf("\n ** Error (unexpected character in input)! **\n");
             return false;
         }
     }
-    printf("\n * Successfully parsed! *\n");
+    printf("\n ** Successfully parsed! **\n");
     return true;
 }
 
