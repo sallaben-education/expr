@@ -17,7 +17,7 @@ struct Node {
 Node Node_new(Node parent, char* content) {
     Node node = malloc(sizeof(struct Node));
     node->parent = parent;
-    node->children = malloc(64 * sizeof(Node));
+    node->children = malloc(64 * sizeof(struct Node));
     node->num_children = 0;
     node->content = content;
     return node;

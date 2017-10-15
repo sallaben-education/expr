@@ -11,6 +11,7 @@
 #include "rdp.h"
 #include "tdp.h"
 #include "tree.h"
+#include "queue.h"
 
 /*
  * Get string input from user followed by RETURN/ENTER.
@@ -56,6 +57,10 @@ void PT_evaluate(bool useTDP) {
         if(TDP_process(tdp)) {
             printf("\n Press enter to continue...");
             getchar();
+            /*Tree tdpTree = TDP_get_tree(tdp);
+            Tree_print(tdpTree);
+            Tree_parse(tdpTree);
+            printf("\n Parse tree evaluates to: %d\n", Tree_evaluate(tdpTree));*/
         }
         TDP_free(tdp);
     } else {
@@ -63,7 +68,15 @@ void PT_evaluate(bool useTDP) {
         if(RDP_process(rdp)) {
             printf("\n Press enter to continue...");
             getchar();
-            Tree_print(RDP_get_tree(rdp));
+            Tree rdpTree = RDP_get_tree(rdp);
+            Tree_print(rdpTree);
+            Tree_parse(rdpTree);
+            int result = Tree_evaluate(rdpTree);
+            if(result != -1) {
+                printf("\n Parse tree evaluates to: %d\n", result);
+            } else {
+                
+            }
         }
         RDP_free(rdp);
     }

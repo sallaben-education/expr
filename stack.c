@@ -16,7 +16,7 @@ struct Stack {
 };
 
 /*
- * Allocate and initialize a new instance of a stack (with a limit of 64 integers)
+ * Allocate and initialize a new instance of a stack (with a limit of 64 integers).
  */
 Stack Stack_new() {
     Stack stack = malloc(sizeof(struct Stack));
@@ -47,7 +47,11 @@ int Stack_pop(Stack stack) {
  * Returns the current top integer of the stack
  */
 int Stack_peek(Stack stack) {
-    return stack->list[0];
+    if(stack->size > 0) {
+        return stack->list[0];
+    } else {
+        return -1;
+    }
 }
 
 /*
@@ -59,13 +63,13 @@ int Stack_size(Stack stack) {
 
 void Stack_print(Stack stack) {
     int size = Stack_size(stack);
-    printf("\n\nStack of size %d", size);
+    printf("\n\nPrinting Stack of size %d", size);
     if(size > 0) {
         for(int i = 0; i < size; i++) {
             if(i == 0) {
-                printf("\n[%d]", stack->list[0]);
+                printf("\n[%c] (%d)", stack->list[0], stack->list[0]);
             } else {
-                printf("\n%d", stack->list[i]);
+                printf("\n%c (%d)", stack->list[i], stack->list[i]);
             }
         }
     } else {

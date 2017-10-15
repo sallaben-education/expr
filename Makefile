@@ -9,7 +9,7 @@ PROGRAMS = expr
 CC = gcc
 CFLAGS = -g -std=c99 -Wall -Werror
 OUT = expr
-FILES = main.c node.c tree.c stack.c rdp.c tdp.c
+FILES = main.c rdp.c tdp.c node.c tree.c stack.c queue.c
 
 auto: $(FILES)
 	$(CC) $(CFLAGS) -o $(OUT) $(FILES)
