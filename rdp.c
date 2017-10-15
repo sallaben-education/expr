@@ -33,16 +33,16 @@ RDP RDP_new(char* input) {
  * starting by checking whether or not the input matches G_expression()
  */
 bool RDP_process(RDP rdp) {
-    rdp->tree = Tree_new(Node_new(NULL, "EXPRESSION"));
-    if(G_expression(rdp, Tree_root(rdp->tree))) {
-        if(RDP_next(rdp) == '$') {
-            printf("\n ** Successfully parsed! **\n");
+    rdp->tree = Tree_new(Node_new(NULL, "EXPRESSION"));                         //initialize the tree
+    if(G_expression(rdp, Tree_root(rdp->tree))) {                                   //if the RDP can match an expression
+        if(RDP_next(rdp) == '$') {                                                      //if the next symbol is the end symbol '$'
+            printf("\n ** Successfully parsed! **\n");                                      //success
             return true;
-        } else {
+        } else {                                                                            //failure while reading final char
             printf("\n ** Error while reading end of expression! **\n");
             return false;
         }
-    } else {
+    } else {                                                                        //failure while parsing
         printf("\n ** Error(s) while parsing expression! **\n");
         return false;
     }
@@ -91,7 +91,7 @@ bool G_number(RDP rdp, Node node) {
     if(G_digit(rdp, digitNode)) {
         Node_add_child(node, digitNode);
         if(G_number_prime(rdp, numberPrimeNode)) {
-            if(!rdp->epsilon) {
+            if(!rdp->epsilon) {                                         //purely visual: don't print productions matched only by epsilon 
                 Node_add_child(node, numberPrimeNode);
             } else {
                 rdp->epsilon = false;

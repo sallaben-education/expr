@@ -14,7 +14,7 @@
 
 typedef struct Queue *Queue;
 
-extern Queue Queue_new(bool integers);
+extern Queue Queue_new(void);
 
 extern void Queue_enqueue(Queue queue, int i);
 
@@ -27,6 +27,8 @@ extern int Queue_size(Queue queue);
 extern void Queue_print(Queue Queue);
 
 extern bool Queue_shift_left(Queue queue);
+
+extern void Queue_free(Queue queue);
 
 #endif /* queue_h */
 

@@ -30,4 +30,6 @@ extern bool Stack_shift_left(Stack stack);
 
 extern bool Stack_shift_right(Stack stack);
 
+extern void Stack_free(Stack stack);
+
 #endif /* stack_h */

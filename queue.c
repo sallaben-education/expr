@@ -13,16 +13,14 @@
 struct Queue {
     int list[64];
     int size;
-    bool integers;
 };
 
 /*
  * Allocate and initialize a new instance of a queue (with a limit of 64 integers).
  */
-Queue Queue_new(bool integers) {
+Queue Queue_new(void) {
     Queue queue = malloc(sizeof(struct Queue));
     queue->size = 0;
-    queue->integers = integers;
     return queue;
 }
 
@@ -66,23 +64,18 @@ int Queue_size(Queue queue) {
     return queue->size;
 }
 
+/*
+ * Prints the given queue in order with attention to the
+ */
 void Queue_print(Queue queue) {
     int size = Queue_size(queue);
     printf("\n\nPrinting Queue of size %d", size);
     if(size > 0) {
         for(int i = 0; i < size; i++) {
             if(i == 0) {
-                if(queue->integers) {
-                    printf("\n[%d]", queue->list[0]);
-                } else {
-                    printf("\n[%c] (%d)", queue->list[0], queue->list[0]);
-                }
+                printf("\n[%d]", queue->list[0]);
             } else {
-                if(queue->integers) {
-                    printf("\n%d", queue->list[i]);
-                } else {
-                    printf("\n%c (%d)", queue->list[i], queue->list[i]);
-                }
+                printf("\n%d", queue->list[i]);
             }
         }
     } else {
@@ -101,4 +94,11 @@ bool Queue_shift_left(Queue queue) {
         queue->list[i - 1] = queue->list[i];
     }
     return true;
+}
+
+/*
+ * Frees the Queue from memory
+ */
+void Queue_free(Queue queue) {
+    free(queue);
 }

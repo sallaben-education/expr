@@ -36,6 +36,9 @@ void printline() {
     printf("\n----------------------------------------\n");
 }
 
+/*
+ * Asks the user for input and evaluates it using a recursive-descent parser.
+ */
 void RDP_execute() {
     char* input = get_input();
     RDP rdp = RDP_new(input);
@@ -43,6 +46,9 @@ void RDP_execute() {
     RDP_free(rdp);
 }
 
+/*
+ * Asks the user for input and evaluates it using a table-driven parser.
+ */
 void TDP_execute() {
     char* input = get_input();
     TDP tdp = TDP_new(input);
@@ -50,36 +56,27 @@ void TDP_execute() {
     TDP_free(tdp);
 }
 
-void PT_evaluate(bool useTDP) {
+/*
+ * Prints and evaluates the parse tree produced by the parser.
+ * Uses the Shunting-Yard algorithm and a Stack to evaluate the parse tree.
+ */
+void PT_evaluate(void) {
     char* input = get_input();
-    if(useTDP) {
-        TDP tdp = TDP_new(input);
-        if(TDP_process(tdp)) {
-            printf("\n Press enter to continue...");
-            getchar();
-            /*Tree tdpTree = TDP_get_tree(tdp);
-            Tree_print(tdpTree);
-            Tree_parse(tdpTree);
-            printf("\n Parse tree evaluates to: %d\n", Tree_evaluate(tdpTree));*/
+    RDP rdp = RDP_new(input);
+    Tree tree = NULL;
+    if(RDP_process(rdp)) {
+        tree = RDP_get_tree(rdp);
+        Tree_print(tree);
+        Tree_parse(tree);
+        int result = Tree_evaluate(tree);
+        if(result != -1) {
+            printf("\n Parse tree evaluates to: %d\n", result);
+        } else {
+            printf("\n Parse tree could not be successfully evaluated!\n");
         }
-        TDP_free(tdp);
-    } else {
-        RDP rdp = RDP_new(input);
-        if(RDP_process(rdp)) {
-            printf("\n Press enter to continue...");
-            getchar();
-            Tree rdpTree = RDP_get_tree(rdp);
-            Tree_print(rdpTree);
-            Tree_parse(rdpTree);
-            int result = Tree_evaluate(rdpTree);
-            if(result != -1) {
-                printf("\n Parse tree evaluates to: %d\n", result);
-            } else {
-                
-            }
-        }
-        RDP_free(rdp);
     }
+    Tree_free(tree);
+    RDP_free(rdp);
 }
 
 /*
@@ -94,10 +91,9 @@ int main(int argc, const char * argv[]) {
         printf("\n");
         printf("[Main Menu]\n");
         printf("  1. Recursive-descent parser\n");
-        printf("  2. Evaluate RDP parse tree\n");
-        printf("  3. Table-driven parser\n");
-        printf("  4. Evaluate TDP parse tree\n");
-        printf("  5. Quit\n");
+        printf("  2. Table-driven parser\n");
+        printf("  3. View and evaluate parse tree\n");
+        printf("  4. Quit\n");
         int choice = -1;
         while(choice == -1) {                                               //until there is a valid integer chosen
             printf("\n Select an option > ");
@@ -107,10 +103,9 @@ int main(int argc, const char * argv[]) {
         if((choice >= 1) && (choice <= 5)) {                                //checks whether or not the choice is a valid one
             switch(choice) {
                 case 1: RDP_execute(); break;                                   //run the recursive-descent parser
-                case 2: PT_evaluate(false); break;                              //create and evaluate a parse tree using a RDP
-                case 3: TDP_execute(); break;                                   //run the table driven parser
-                case 4: PT_evaluate(true); break;                               //create and evaluate a parse tree using a TDP
-                case 5: escape = true; break;                                   //exit the menu loop
+                case 2: TDP_execute(); break;                                   //create and evaluate a parse tree
+                case 3: PT_evaluate(); break;                                   //run the table driven parser
+                case 4: escape = true; break;                                   //exit the menu loop
             }
         } else {
             printf("\nI didn't understand your input. Please try again!\n");

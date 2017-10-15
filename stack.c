@@ -61,6 +61,9 @@ int Stack_size(Stack stack) {
     return stack->size;
 }
 
+/*
+ * Prints the given stack in order, distinguishing the top element with [brackets]
+ */
 void Stack_print(Stack stack) {
     int size = Stack_size(stack);
     printf("\n\nPrinting Stack of size %d", size);
@@ -101,4 +104,11 @@ bool Stack_shift_right(Stack stack) {
         stack->list[i] = stack->list[i - 1];
     }
     return true;
+}
+
+/*
+ * Frees the Stack from memory
+ */
+void Stack_free(Stack stack) {
+    free(stack);
 }
